@@ -1,24 +1,21 @@
 import React, { PropTypes } from 'react';
 import Tweet from './Tweet';
 import styles from '../styles/main.css';
+import Paper from 'material-ui/Paper';
+import FlatButton from 'material-ui/FlatButton';
 
 const style = {
-  display: 'inline-block'
+  display: 'inline-block',
+  float: 'right',
+  overflow: 'hidden',
+  width: '60%'
 };
 
-const TweetList = ({ tweets, onGetTweets, onPostTweet, onTrashTweet }) => {
-  function fetchTweets() {
-    fetch('http://127.0.0.1:1337/generateDummy', { method: 'GET', mode: 'cors' })
-    .then(result => result.json())
-    .then(result => {
-      localStorage.setItem('tweets', JSON.stringify(result));
-      return onGetTweets(result);
-    })
-    .catch(err => console.error(err));
-  }
+const TweetList = ({ tweets, onPostTweet, onTrashTweet }) => {
+
   return (
     <div styles={style}>
-      <button onClick={fetchTweets}>Get Tweeties</button>
+        <FlatButton label="Get Valid Tweeties" /*onClick={getValidTweets}*//>
       <div styles={styles['tweets-list']}>
         {tweets.map((t) => (
           <Tweet
@@ -39,5 +36,6 @@ TweetList.propTypes = {
   onPostTweet: PropTypes.func,
   onTrashTweet: PropTypes.func,
 };
+
 
 export default TweetList;

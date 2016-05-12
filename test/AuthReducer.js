@@ -30,14 +30,27 @@ it('creates a LOGIN_SUCCESS when fetching for authentication is done', () => {
 
   return store.dispatch(actions.authUser())
     .then(() => { //return async action
-      expect(store.getActions()).toEqual(expectedActions)
+      console.log(store.getActions());
+      console.log(expectedActions);
+      expect(store.getActions()).to.equal(expectedActions);
     })
   })
-})
+});
 
+it('creates a LOGIN_FAILURE when authentication fetching fails', () => {
+  nock('http://127.0.0.1:1337')
+    .get('/authUser')
+    .reply(404, { message: 'error in authentication'})
 
+  const expectedActions = [
+    { type: types.LOGIN_REQUEST, isAuthenticated: false, isFetching: true },
+    { type: types.LOGIN_FAILURE, isAuthenticated: false, isFetching: false, message: 'error message prop should exist' },
+  ]
+  const store = mockStore({ isAuthenticated: false, isFetching: false });
 
-
-
-
-
+  return store.dispatch(actions.authUser())
+    .then(() => {
+      expect(store.getActions()[1].message).to.be.ok;
+      // expect(store.getActions().to.include({type: 'LOGIN_FAILURE'});
+  })
+});

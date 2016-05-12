@@ -49,6 +49,10 @@ module.exports = function(app, passport) {
     res.status(200).json({ authID: req.user.id });
   });
 
+  app.post('/postTweet', function(req, res) {
+    res.status(201);
+  });
+  
   app.get('/generate', ensureAuthenticated, function(req, res) {
 
     User.retrieveUser(req.user.id, 'token', 'tokenSecret')

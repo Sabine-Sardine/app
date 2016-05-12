@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import TweetListContainer from '../containers/TweetListContainer';
-import { receiveLogin, loginError, authUser } from '../actions/Login';
-// import { authUser } from '../actions/Login';
+import { authUser } from '../actions/Login';
+import { getTweetAsync } from '../actions/tweets';
 import SideMenu from '../components/SideMenu';
 
 class Dashboard extends React.Component {
@@ -11,13 +11,14 @@ class Dashboard extends React.Component {
     const { dispatch, isAuthenticated } = this.props;
     if (!isAuthenticated) {
       dispatch(authUser());
+      dispatch(getTweetsAsync());
     }
   }
 
   render() {
     return (
       <main>
-        <TweetListContainer />
+        <TweetListContainer filter="SHOW_VALID" />
       </main>
 
     );

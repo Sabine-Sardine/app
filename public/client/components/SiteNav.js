@@ -8,11 +8,10 @@ import FlatButton from 'material-ui/FlatButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import Dashboard from '../containers/Dashboard';
 
-
 const SiteNav = ({ isAuthenticated, onLogoutClick }) => (
   <Toolbar>
   <ToolbarTitle text="BOTLBOT APP"/>
-  <ToolbarGroup className={styles.rightNav}>
+  <ToolbarGroup>
     <FlatButton
       linkButton={true}
       label="About"

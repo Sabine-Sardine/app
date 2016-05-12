@@ -11,20 +11,22 @@ const style = {
     height: '100%'
   },
   main: {
-    position:
+    position: 'relative',
+    width: '65%',
+    float: 'right',
+    overflow: 'hidden'
   }
 }
 
 const Main = ({ dispatch, isAuthenticated, main, sidebar }) => (
-  <div styles>
+  <div>
     <SiteNav
-      styles={style}
       isAuthenticated={isAuthenticated}
       onLogoutClick={() => dispatch(logoutUser())}/>
-    <div className="Sidebar">
+    <div styles={style.sidebar}>
       {sidebar}
     </div>
-    <div className="Main">
+    <div styles={style.main}>
       {main}
     </div>
   </div>
