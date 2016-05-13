@@ -2,9 +2,32 @@ import {
   ADD_NEW_TWEETS,
   POST_TWEET,
   TRASH_TWEET,
+  EDIT_TWEET,
+  EDIT_TWEET_REQUEST,
+  CANCEL_EDIT_TWEET,
 } from '../constants.js';
 import { fetchRequest, fetchSuccess, fetchFailure } from './requestStatus';
 
+export function requestEdit(id) {
+  return {
+    type: EDIT_TWEET_REQUEST,
+    id,
+  };
+}
+export function editTweet(id, tweet_text) {
+  return {
+    type: EDIT_TWEET,
+    id,
+    tweet_text,
+  };
+}
+
+export function cancelEditTweet(id) {
+  return {
+    type: CANCEL_EDIT_TWEET,
+    id,
+  };
+}
 export function addTweets(tweets) {
   return {
     type: ADD_NEW_TWEETS,
@@ -33,12 +56,11 @@ export function trashTweet(id) {
 export function getTweetsAsync() {
   return dispatch => {
     dispatch(fetchRequest());
-    return fetch('http://127.0.0.1:1337/generateDummy', { method: 'GET', mode: 'cors' })
+    return fetch('http://127.0.0.1:1337/getgenerate', { method: 'GET', credentials: 'same-origin'})
       .then(result => result.json())
       .then(result => {
-        // console.log(result);
         localStorage.setItem('tweets', JSON.stringify(result));
-        return dispatch(addTweets(tweets));
+        return dispatch(addTweets(result));
       })
       .catch(err => {
         console.error(err);

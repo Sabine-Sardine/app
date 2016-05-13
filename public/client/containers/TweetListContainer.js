@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import TweetList from '../components/TweetList';
-import { addTweets, postTweet, trashTweet } from '../actions/tweets';
+import { addTweets, postTweet, trashTweet, requestEdit, editTweet, cancelEditTweet} from '../actions/tweets';
 import { postTweetAsync, getTweetsAsync } from '../actions/tweets.js';
 import { tweetsFilter } from '../actions/TweetsFilter';
 //function that takes in tweet and filter action
@@ -12,11 +12,11 @@ const filterTweets = (tweets, filter) => {
     case 'SHOW_ALL':
       return tweets;
     case 'SHOW_VALID':
-      return tweets.filter(t => !(t.posted || t.trashed));
+      return tweets.filter(t => t.status === 'available');
     case 'SHOW_POSTED':
-      return tweets.filter(t => t.posted);
+      return tweets.filter(t => t.status === 'posted');
     case 'SHOW_TRASHED':
-      return tweets.filter(t => t.trashed);
+      return tweets.filter(t => t.status === 'trashed');
     default:
       return tweets;
   }
@@ -29,16 +29,24 @@ class TweetListContainer extends React.Component {
   }
 
   render() {
-    const {tweets, onPostTweet, onTrashTweet, getValidTweets} = this.props;
+    const {tweets, 
+      onPostTweet, 
+      cancelEditTweet, 
+      onTrashTweet, 
+      getValidTweets, 
+      editTweet, 
+      onRequestEdit } = this.props;
     return (
       <TweetList 
       tweets={tweets} 
-      // onGetTweets={onGetTweets} 
-      onPostTweet={onPostTweet} 
+      onPostTweet={onPostTweet}
+      onRequestEdit={onRequestEdit}
+      cancelEditTweet={cancelEditTweet}
+      onEditTweet={editTweet}
       onTrashTweet={onTrashTweet}
       // getValidTweets={getValidTweets}
       />
-    )
+    ) 
   }
 }
 const mapStateToProps = (state) => ({ 
@@ -48,9 +56,16 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   filterTweets: () => {
     dispatch(tweetsFilter(ownProps.filter));
   },
-  // onGetTweets: (tweets) => {
-  //   dispatch(getTweetsAsync(tweets));
-  // },
+  editTweet: (id, tweet_text) => {
+    dispatch(editTweet(id, tweet_text));
+  },
+  cancelEditTweet: (id) => {
+    console.log('eddddddittttt tweet');
+    dispatch(cancelEditTweet(id));
+  },
+  onRequestEdit: (id) => {
+    dispatch(requestEdit(id));
+  },
   onPostTweet: (id) => {
     dispatch(postTweetAsync(id));
   },

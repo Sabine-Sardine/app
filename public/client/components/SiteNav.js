@@ -15,7 +15,7 @@ const SiteNav = ({ isAuthenticated, onLogoutClick }) => (
     <FlatButton
       linkButton={true}
       label="About"
-      href="/about"
+      href="/"
     />
     <FlatButton
       linkButton={true}
@@ -49,31 +49,4 @@ export default SiteNav;
     //     src="http://res.publicdomainfiles.com/pdf_view/2/13494514811992.png"
     //     alt="bottle silhouette"
     //     className={styles.brand}
-    //   />
-    //   <ul>
-    //     <MenuItem>
-    //       {isAuthenticated ? 
-    //         <Logout onLogoutClick={onLogoutClick}/> 
-    //         : <Login /> 
-    //       }
-    //     </MenuItem>
-    //     <MenuItem
-    //     primaryText="Refresh">
-    //       <Link
-    //         to="/about"
-    //         activeClassName="active-nav-link"
-    //       >
-    //         About
-    //       </Link>
-    //     </MenuItem>
-    //     <li>
-    //       <Link
-    //         to="/about"
-    //         activeClassName="active-nav-link"
-    //       >
-    //         Other Link
-    //       </Link>
-    //     </li>
-    //   </ul>
-    // </nav>
-    */
+*/
