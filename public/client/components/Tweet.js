@@ -10,14 +10,14 @@ const style = {
   main: {
     margin: '16px 32px 16px 0',
     width: '50%',
-    float: 'right'
+    float: 'right',
   },
   paper: {
     border: '1px #ddd',
-    'border-radius': '4px',
+    borderRadius: '4px',
     padding: '10px',
     color: 'green',
-  }
+  },
 };
 
 const Tweet = ({

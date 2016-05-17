@@ -9,7 +9,6 @@ class Dashboard extends React.Component {
 
   componentWillMount() {
     const { dispatch, isAuthenticated } = this.props;
-    console.log('is user authenticated ----->', isAuthenticated);
     if (!isAuthenticated) {
       dispatch(authUser());
     }

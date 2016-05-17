@@ -33,7 +33,7 @@ function setTime(time) {
   var randomTime = Math.floor(Math.random() * (times[time].max - times[time].min + 1) + times[time].min);
   
   //add to time 30 (8.5 = 8:30 AM, 15.5 = 3:30 PM )
-   if (Math.floor(Math.random()*2) === 1) {
+   if (Math.floor(Math.random() * 2) === 1) {
     return randomTime.toString() + ':30'
    } else {
     return randomTime.toString() + ':00'
@@ -118,9 +118,8 @@ export default class SchedulePopOver extends React.Component {
             </Menu>
           : <Menu>
             <MenuItem primaryText="Morning" onClick={this.handleClickTime.bind(this)}/>
-            <MenuItem primaryText="Afternoon" onClick={this.handleClickTime.bind(this)}/>
-            <MenuItem primaryText="Evening"  onClick={this.handleClickTime.bind(this)}/>
-            <MenuItem primaryText="Night" onClick={this.handleClickTime.bind(this)}/>
+            <MenuItem primaryText="Afternoon"  onClick={this.handleClickTime.bind(this)}/>
+            <MenuItem primaryText="Evening" onClick={this.handleClickTime.bind(this)}/>
           </Menu> }
         </Popover>
       </div>

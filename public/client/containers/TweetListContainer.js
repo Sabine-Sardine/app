@@ -29,9 +29,10 @@ class TweetListContainer extends React.Component {
   }
 
   render() {
-    const {tweets, 
+    const {
+      tweets, 
       onPostTweet, 
-      cancelEditTweet, 
+      cancelEditTweet,
       onTrashTweet, 
       getValidTweets, 
       editTweet, 
@@ -46,7 +47,6 @@ class TweetListContainer extends React.Component {
       onEditTweet={editTweet}
       onTrashTweet={onTrashTweet}
       onScheduleTweet={onScheduleTweet}
-      // getValidTweets={getValidTweets}
       />
     ) 
   }

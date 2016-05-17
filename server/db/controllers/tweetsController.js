@@ -25,7 +25,7 @@ function scrubPostedTweet(tweet) {
     retweet_count: 0,
     favorite_count: 0,
     created_at: new Date(tweet.created_at),
-    updated_at: new Date()
+    updated_at: new Date(),
   };
 }
 

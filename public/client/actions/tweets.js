@@ -75,9 +75,10 @@ export function getTweetsAsync() {
       { method: 'GET', credentials: 'same-origin' })
       .then(result => result.json())
       .then(result => {
-        console.log('result ----> ', result);
-        localStorage.setItem('tweets', JSON.stringify(result));
-        return dispatch(addTweets(result));
+        // console.log('result ----> ', result);
+        localStorage.setItem('tweets', JSON.stringify(result.slice(result.length - 20, result.length - 1)));
+        return dispatch(addTweets(
+          result.slice(result.length - 20, result.length - 1).reverse()));
       })
       .catch(err => {
         console.error(err);
@@ -151,10 +152,10 @@ export function editTweetAsync(id, tweet_text) {
 }
 
 export function scheduleTweetAsync(id, schedule) {
-  console.log('IN SCHEDULE TWEET ASYNC _----->di ---------> ', id, schedule);
+  // console.log('IN SCHEDULE TWEET ASYNC _----->di ---------> ', id, schedule);
   return dispatch => {
     dispatch(fetchRequest());
-    return fetch('http://127.0.0.1:1337/scheduletweet/' + id,
+    return fetch('http://127.0.0.1:1337/tweets/schedule/' + id,
       { method: 'POST',
       header: {
         'Accept': 'application/json',

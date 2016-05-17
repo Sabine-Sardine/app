@@ -59,18 +59,26 @@ module.exports = function(app, passport) {
     .then(results => res.status(200).json(results))
     .catch(err => res.status(500).send(err));
   });
-
+    
   app.get('/tweets/posted', function (req, res) {
     Tweets.getPostedTweets(req.user.id)
     .then(results => res.status(200).json(results))
     .catch(err => res.status(500).send(err));
   });
+  
+  // app.get('/tweets/scheduled', function(req, res) {
+  //   //TODO: create controller for getting scheduled tweets.
+  //   //only post tweets that are to be scheduled. 
+  //   // Tweets.getPostedTweets(req.user.id)
+  //   .then(results => res.status(200).json(results))
+  //   .catch(err => res.status(500).send(err));  
+  // });
 
   app.put('/tweets/:id', function (req, res) {
     console.log('req-body-text ---------->', req.params.id, '------>', req.body);
     Tweets.modifyTweetText(req.params.id, req.body.text)
     .then((status) => res.status(201).send(status))
-    .catch(err => res.status(500).send(err));
+    .catch(err => res.status(500).send(err))
   });
 
   app.post('/tweets/:id', function(req, res) {
@@ -82,25 +90,25 @@ module.exports = function(app, passport) {
     // using bot_tweet_id to modify generatedtweets table to show as 'posted'
     .then(id => Tweets.modifyTweetStatus(req.params.id, 'posted'))
     .then(status => res.status(201).send(status))
-    .catch(err => res.status(500).send(err))
+    .catch(err => res.status(500).send(err));
   });
 
   // create route for scheduling
-  app.post('/scheduletweet/:id', function(req, res) {
+  app.post('/tweets/schedule/:id', function (req, res) {
     console.log(req.body);
     Tweets.scheduleTweet(req.params.id, req.body.schedule)
     .then(reply => res.status(201).send(reply))
-    .catch(err => res.status(500).send(err))
-  })
+    .catch(err => res.status(500).send(err));
+  });
   // trash tweet on client side does not delete from generated tables.
   // set up worker to clear out database periodically
-  app.put('/trashtweet/:id', function(req, res) {
+  app.delete('/tweets/:id', function (req, res) {
     Tweets.modifyTweetStatus(req.params.id, 'trashed')
     .then(status => res.status(201).send(status))
-    .catch(err => res.status(500).send(err))
+    .catch(err => res.status(500).send(err));
   });
 
-  app.post('/buildTemplate', function(req, res) {
+  app.post('/buildTemplate', function (req, res) {
     console.log('HEY LOOK HERE', req.body);
     req.body ? res.status(201).send('you did it') : res.status(400).send('you didn\'t do it');
   });
